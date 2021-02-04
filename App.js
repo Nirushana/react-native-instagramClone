@@ -6,7 +6,10 @@ import { createStackNavigator } from '@react-navigation/stack';
 import 'react-native-gesture-handler';
 import LandingSrc from './components/auth/LandingSrc';
 import RegisterSrc from './components/auth/RegisterSrc';
-import MainSrc from './components/Main'
+import LoginSrc from './components/auth/LoginSrc';
+import MainSrc from './components/Main';
+import AddSrc from './components/main/Add';
+import SaveSrc from './components/main/Save';
 import * as firebase from 'firebase';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
@@ -74,13 +77,20 @@ export class App extends Component {
         <Stack.Navigator initialRouteName="Landing">
           <Stack.Screen name="Landing" component={ LandingSrc } options={{headerShown: false}} />
           <Stack.Screen name="Register" component={ RegisterSrc } />
+          <Stack.Screen name="Login" component={ LoginSrc } />
         </Stack.Navigator>
       </NavigationContainer>
       );
     }
     return(
       <Provider store={store}>
-        <MainSrc />
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="Main">
+            <Stack.Screen name="Main" component={ MainSrc } options={{headerShown: false}} />
+            <Stack.Screen name="Add" component={ AddSrc } navigation={this.props.navigation} />
+            <Stack.Screen name="Save" component={ SaveSrc } />
+          </Stack.Navigator>
+        </NavigationContainer>
       </Provider>
       
     );
